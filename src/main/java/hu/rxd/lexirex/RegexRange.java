@@ -1,4 +1,4 @@
-package tx1;
+package hu.rxd.lexirex;
 
 import java.util.ArrayList;
 import java.util.List;

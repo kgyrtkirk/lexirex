@@ -1,4 +1,4 @@
-package tx1;
+package hu.rxd.lexirex;
 
 import static org.junit.Assert.*;
 

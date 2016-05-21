@@ -1,4 +1,4 @@
-package tx1;
+package hu.rxd.lexirex;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +16,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import tx1.TestResults.Suite;
-import tx1.TestResults.Suite.Case;
+import hu.rxd.lexirex.TestResults.Suite;
+import hu.rxd.lexirex.TestResults.Suite.Case;
 
 //
 
