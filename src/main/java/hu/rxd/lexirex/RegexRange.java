@@ -69,7 +69,7 @@ public class RegexRange {
 			}
 		}
 		for (int i = commonP.length() + 1; i < labelE.length(); i++) {
-			exprs.add(Pattern.quote(labelE.substring(cL, i)) + "[\\x00-" + pred(labelE.charAt(i)) + "].*");
+			exprs.add(Pattern.quote(labelE.substring(cL, i)) + "([\\x00-" + pred(labelE.charAt(i)) + "].*)?");
 		}
 		if(includeE){
 			exprs.add(Pattern.quote(labelE.substring(cL)));
@@ -127,9 +127,7 @@ public class RegexRange {
 		}else{
 			sb.append("[");
 		}
-		
 		return sb.toString();
-//				String.format("[%s..%s[  p: %s", labelS, labelE, commonP);
 	}
 
 	private String commonPrefix(String a, String b) {

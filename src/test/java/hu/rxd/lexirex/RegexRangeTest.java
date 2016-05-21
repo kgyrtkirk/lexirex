@@ -11,7 +11,8 @@ public class RegexRangeTest {
 
 	@Test
 	public void testUsage1() {
-		Pattern p = RegexRangeBuilder.fromExclusive("alma")
+		Pattern p = RegexRangeBuilder
+				.fromExclusive("alma")
 				.toInclusive("alsovent")
 				.toPattern();
 
@@ -26,7 +27,8 @@ public class RegexRangeTest {
 
 	@Test
 	public void testII() {
-		Pattern p = RegexRangeBuilder.fromInclusive("alma")
+		Pattern p = RegexRangeBuilder
+				.fromInclusive("alma")
 				.toInclusive("alsovent")
 				.toPattern();
 		assertTrue(p.matcher("alma").matches());
@@ -35,11 +37,36 @@ public class RegexRangeTest {
 
 	@Test
 	public void testEE() {
-		Pattern p = RegexRangeBuilder.fromExclusive("alma")
+		Pattern p = RegexRangeBuilder
+				.fromExclusive("alma")
 				.toExclusive("alsovent")
 				.toPattern();
 		assertFalse(p.matcher("alma").matches());
 		assertFalse(p.matcher("alsovent").matches());
 	}
 
+	@Test
+	public void testC1() {
+		RegexRange regexRange = RegexRangeBuilder
+				.fromExclusive("")
+				.toExclusive("aa");
+		System.out.println(regexRange.toRegex());
+		Pattern p = regexRange
+				.toPattern();
+		assertTrue(p.matcher("a").matches());
+	}
+
+	@Test(expected=Exception.class)
+	public void testInvalidRange() {
+		RegexRange regexRange = RegexRangeBuilder
+				.fromExclusive("aa")
+				.toExclusive("aa");
+	}
+
+	@Test(expected=Exception.class)
+	public void testInvalidRange2() {
+		RegexRange regexRange = RegexRangeBuilder
+				.fromInclusive("xx")
+				.toInclusive("aa");
+	}
 }
