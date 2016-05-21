@@ -10,6 +10,8 @@ public class RegexRange {
 	private String labelE;
 	private String commonP;
 	private List<String> exprs;
+	private boolean includeS;
+	private boolean includeE;
 
 	/**
 	 * @param s
@@ -23,24 +25,30 @@ public class RegexRange {
 	}
 	
 	public RegexRange(boolean includeS,String labelS,boolean includeE, String labelE) {
-		exprs = new ArrayList<>();
+		this.includeS = includeS;
+		this.includeE = includeE;
 		this.labelS = labelS;
 		this.labelE = labelE;
-
+		
 		commonP = commonPrefix(labelS, labelE);
-		char u = labelE.charAt(0);
-		System.out.println((int) u);
-		System.out.println(clearPrint(u));
+		
+		exprs = new ArrayList<>();
 
 		int cL = commonP.length();
 
 		// special case...S=E
 		if (cL == labelE.length() && cL == labelS.length()) {
+			if(!(includeS && includeE)){
+				throw new IllegalArgumentException("invalid range request: "+toString());
+			}
 			exprs.add("");
 			return;
 		}
 
 		// add all prefixed with labelS
+		if(includeS){
+			exprs.add(Pattern.quote(labelS.substring(cL)));
+		}
 
 		if (labelS.length() > commonP.length()) {
 			exprs.add(Pattern.quote(labelS.substring(cL)) + ".+");
@@ -66,12 +74,9 @@ public class RegexRange {
 		for (int i = commonP.length() + 1; i < labelE.length(); i++) {
 			exprs.add(Pattern.quote(labelE.substring(cL, i)) + "[\\x00-" + pred(labelE.charAt(i)) + "].*");
 		}
-		exprs.add(Pattern.quote(labelE));
-		// char[] last = labelS.toCharArray();
-		// char[] target = labelE.toCharArray();
-
-		// labelS.toCharArray();
-
+		if(includeE){
+			exprs.add(Pattern.quote(labelE.substring(cL)));
+		}
 	}
 
 	private String succ(char c) {
@@ -110,7 +115,24 @@ public class RegexRange {
 
 	@Override
 	public String toString() {
-		return String.format("[%s..%s[  p: %s", labelS, labelE, commonP);
+		StringBuffer	sb=new StringBuffer();
+		if(includeS){
+			sb.append("[");
+		}else{
+			// it would be more correct to use '(' but i think ']' is more self-explaining 
+			sb.append("]");
+		}
+		sb.append(labelS);
+		sb.append(" ... ");
+		sb.append(labelE);
+		if(includeE){
+			sb.append("]");
+		}else{
+			sb.append("[");
+		}
+		
+		return sb.toString();
+//				String.format("[%s..%s[  p: %s", labelS, labelE, commonP);
 	}
 
 	private String commonPrefix(String a, String b) {
