@@ -125,14 +125,14 @@ class Asd1 {
 		String	c0=eL!=null?eL.className:"A";
 		String	c1=eR!=null?eR.className:"z";
 		Range1	r1=new Range1();
-		r1.addClassRange(new RegexRange(c0, c1));
+		r1.addClassRange(RegexRangeBuilder.fromInclusive(c0).toInclusive(c1));
 		if(eL!=null){
-			r1.addExcludeRange(new RegexRange(c0+"#a", c0+"#"+eL.methodName));
+			r1.addExcludeRange(RegexRangeBuilder.fromInclusive(c0+"#").toExclusive(c0+"#"+eL.methodName));
 		}
 		if(eR!=null){
-			r1.addExcludeRange(new RegexRange(c1+"#"+eR.methodName, c1+"#\3ff"));
+			r1.addExcludeRange(RegexRangeBuilder.fromExclusive(c1+"#"+eR.methodName).toInclusive(c1+"#\3ff"));
 		}
-		return new RegexRange(c0, c1);
+		return RegexRangeBuilder.fromInclusive(c0).toInclusive(c1);
 	}
 
 	private static InputStream getLocalResults() throws Exception {

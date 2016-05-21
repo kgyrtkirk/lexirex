@@ -13,16 +13,6 @@ public class RegexRange {
 	private boolean includeS;
 	private boolean includeE;
 
-	/**
-	 * @param s
-	 *            inclusive
-	 * @param e
-	 *            exclusive
-	 */
-	@Deprecated
-	public RegexRange(String labelS, String labelE) {
-		this(true,labelS,false,labelE);
-	}
 	
 	public RegexRange(boolean includeS,String labelS,boolean includeE, String labelE) {
 		this.includeS = includeS;
