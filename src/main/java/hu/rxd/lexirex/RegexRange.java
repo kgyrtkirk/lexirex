@@ -20,6 +20,13 @@ public class RegexRange {
 		this.labelS = labelS;
 		this.labelE = labelE;
 		
+		if(labelS == null || labelE==null){
+			throw new RuntimeException();
+		}
+		
+		if(labelS.compareTo(labelE) > 0){
+			throw new IllegalArgumentException("start > end is invalid: "+toString());
+		}
 		commonP = commonPrefix(labelS, labelE);
 		
 		exprs = new ArrayList<>();
