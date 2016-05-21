@@ -1,9 +1,7 @@
 package hu.rxd.lexirex;
 
-import hu.rxd.lexirex.RegexRangeBuilder.From;
-
 public class RegexRangeBuilder {
-	public static class From {
+	static class From {
 
 		private String st;
 		private boolean stInclusive;
@@ -13,20 +11,21 @@ public class RegexRangeBuilder {
 			this.stInclusive = inclusive;
 		}
 
-		public RegexRange toInclusive(String string) {
-			return new RegexRange(stInclusive, st, true, string);
+		public RegexRange toInclusive(String to) {
+			return new RegexRange(stInclusive, st, true, to);
 		}
-		public RegexRange toExclusive(String string) {
-			return new RegexRange(stInclusive, st, false, string);
+
+		public RegexRange toExclusive(String to) {
+			return new RegexRange(stInclusive, st, false, to);
 		}
 	}
 
-	public static From fromExclusive(String string) {
-		return new From(string, false);
+	public static From fromExclusive(String from) {
+		return new From(from, false);
 	}
 
-	public static From fromInclusive(String string) {
-		return new From(string,true);
+	public static From fromInclusive(String from) {
+		return new From(from, true);
 	}
 
 }
