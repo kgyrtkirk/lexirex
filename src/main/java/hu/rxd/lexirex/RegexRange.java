@@ -122,10 +122,6 @@ public class RegexRange {
 		return a.substring(0,l);
 	}
 
-	public List<String> getExprs() {
-		return exprs;
-	}
-
 public	String getRegex(){
 		StringBuffer sb = new StringBuffer();
 		sb.append(Pattern.quote(commonP));

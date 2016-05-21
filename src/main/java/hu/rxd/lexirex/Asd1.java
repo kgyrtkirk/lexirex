@@ -90,7 +90,6 @@ class Asd1 {
 		
 		for (int i = 0; i < ranges.size(); i++) {
 			RegexRange regexRange = ranges.get(i);
-			System.out.println(regexRange.getExprs());
 			System.out.println(regexRange);
 			Pattern.compile(regexRange.getRegex());
 			System.out.println(regexRange.getRegex());
