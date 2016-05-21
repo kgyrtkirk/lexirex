@@ -56,12 +56,8 @@ public class RegexRange {
 		{
 			int i = commonP.length();
 			// FIXME |commonP| == |labelS| || ==|labelE|
-			if (commonP.length() == labelS.length() || commonP.length() == labelE.length()) {
-				if (commonP.length() == labelS.length()) {
-					exprs.add("[\\x00-" + pred(labelE.charAt(i)) + "].*");
-				} else {
-					throw new RuntimeException("impossible labelE<labelS");
-				}
+			if (commonP.length() == labelS.length()) {
+				exprs.add("[\\x00-" + pred(labelE.charAt(i)) + "].*");
 			} else {
 				if (labelS.charAt(i) + 1 < labelE.charAt(i)) {
 					exprs.add("[" + succ(labelS.charAt(i)) + "-" + pred(labelE.charAt(i)) + "].*");
