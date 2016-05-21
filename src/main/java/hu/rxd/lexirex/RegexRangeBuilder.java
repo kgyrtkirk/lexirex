@@ -1,7 +1,7 @@
 package hu.rxd.lexirex;
 
 public class RegexRangeBuilder {
-	static class From {
+	public static class From {
 
 		private String st;
 		private boolean stInclusive;
