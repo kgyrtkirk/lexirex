@@ -1,5 +1,11 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven'
+apply plugin: 'signing'
+
+group = "hu.rxd"
+archivesBaseName = "lexirex"
+version = "0.1.0"
 
 repositories {
 	mavenCentral()
@@ -7,5 +13,69 @@ repositories {
 
 dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
-	testCompile 'junit:junit:4.+'
+	testCompile 'junit:junit:4.12'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+if (project.hasProperty('ossrhUsername')) {
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'lexirex'
+        packaging 'jar'
+        description 'A tool to generate regexps for matching to a lexical range'
+        url 'https://github.com/kgyrtkirk/lexirex'
+
+        scm {
+          connection 'scm:git:https://github.com/kgyrtkirk/lexirex'
+          developerConnection 'scm:sgit:https://github.com/kgyrtkirk/lexirex'
+          url 'https://github.com/kgyrtkirk/lexirex'
+        }
+
+        licenses {
+          license {
+            name 'MIT License'
+	    url 'http://www.opensource.org/licenses/mit-license.php'
+          }
+        }
+
+        developers {
+          developer {
+            id 'kirk'
+            name 'Zoltan Haindrich'
+            email 'kirk@rxd.hu'
+          }
+        }
+      }
+    }
+  }
+}
 }
