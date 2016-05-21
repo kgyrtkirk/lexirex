@@ -47,12 +47,16 @@ public class RegexRange {
 			exprs.add(Pattern.quote(labelS.substring(cL)));
 		}
 
+		// labelS is prefix
 		if (labelS.length() > commonP.length()) {
 			exprs.add(Pattern.quote(labelS.substring(cL)) + ".+");
 		}
+		
 		for (int i = labelS.length() - 1; i > commonP.length(); i--) {
 			exprs.add(Pattern.quote(labelS.substring(cL, i)) + "[" + succ(labelS.charAt(i)) + "-\\xff].*");
 		}
+		
+		// midrange..first nonmatching char
 		{
 			int i = commonP.length();
 			// FIXME |commonP| == |labelS| || ==|labelE|
