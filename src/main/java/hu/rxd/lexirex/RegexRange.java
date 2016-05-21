@@ -142,7 +142,7 @@ public class RegexRange {
 		return a.substring(0, l);
 	}
 
-	public String getRegex() {
+	public String toRegex() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(Pattern.quote(commonP));
 		sb.append('(');
@@ -156,6 +156,6 @@ public class RegexRange {
 	}
 
 	public Pattern toPattern() {
-		return Pattern.compile(getRegex());
+		return Pattern.compile(toRegex());
 	}
 }

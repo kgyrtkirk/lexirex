@@ -91,10 +91,10 @@ class Asd1 {
 		for (int i = 0; i < ranges.size(); i++) {
 			RegexRange regexRange = ranges.get(i);
 			System.out.println(regexRange);
-			Pattern.compile(regexRange.getRegex());
-			System.out.println(regexRange.getRegex());
+			Pattern.compile(regexRange.toRegex());
+			System.out.println(regexRange.toRegex());
 			FileWriter fw = new FileWriter("/tmp/_lx0");
-			fw.append(regexRange.getRegex());
+			fw.append(regexRange.toRegex());
 			fw.close();
 			if(i==1)
 			break;
