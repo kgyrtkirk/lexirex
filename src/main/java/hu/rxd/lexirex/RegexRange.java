@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 public class RegexRange {
 
+	public static final String INCLUSIVE = null;
+	
 	private String labelS;
 	private String labelE;
 	private String commonP;
@@ -133,4 +135,8 @@ public	String getRegex(){
 		sb.append(')');
 		return sb.toString();
 	}
+
+public Pattern toPattern() {
+return	Pattern.compile(getRegex());
+}
 }
