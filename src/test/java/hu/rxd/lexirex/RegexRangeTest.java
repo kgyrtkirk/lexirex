@@ -40,5 +40,15 @@ public class RegexRangeTest {
 		assertTrue(p.matcher("also.").matches());
 		assertFalse(p.matcher("alsoventa").matches());
 	}
+	
+	@Test
+	public void testII() {
+		Pattern p=RegexRangeBuilder.fromInclusive("alma")
+				.toInclusive("alsovent")
+				.toPattern();
+		assertTrue(p.matcher("alma").matches());
+		assertTrue(p.matcher("alsovent").matches());
+	}
+
 
 }
