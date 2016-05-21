@@ -76,6 +76,23 @@ public class RegexRange {
 		}
 	}
 
+	public String toRegex() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(Pattern.quote(commonP));
+		sb.append('(');
+		for (int i = 0; i < exprs.size(); i++) {
+			if (i > 0)
+				sb.append('|');
+			sb.append(exprs.get(i));
+		}
+		sb.append(')');
+		return sb.toString();
+	}
+
+	public Pattern toPattern() {
+		return Pattern.compile(toRegex());
+	}
+
 	private String succ(char c) {
 		return excapeIfNeeded(succ1(c));
 	}
@@ -140,20 +157,4 @@ public class RegexRange {
 		return a.substring(0, l);
 	}
 
-	public String toRegex() {
-		StringBuffer sb = new StringBuffer();
-		sb.append(Pattern.quote(commonP));
-		sb.append('(');
-		for (int i = 0; i < exprs.size(); i++) {
-			if (i > 0)
-				sb.append('|');
-			sb.append(exprs.get(i));
-		}
-		sb.append(')');
-		return sb.toString();
-	}
-
-	public Pattern toPattern() {
-		return Pattern.compile(toRegex());
-	}
 }
